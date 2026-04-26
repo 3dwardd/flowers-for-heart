@@ -3,54 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌹 Flowers for You Love 🌹</title>
+    <title>🌹 Bouquet of Love 🌹</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <div class="content">
-            <h1>💐 For You 💐</h1>
-            <p class="message">A special bouquet for the most special person in my life</p>
-            
-            <div class="flowers">
-                <div class="flower rose">
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="center"></div>
+        <!-- Initial Screen with Click Button -->
+        <div class="initial-screen" id="initialScreen">
+            <h1 class="greeting">✨ Special For You ✨</h1>
+            <button class="click-button" id="clickButton">💝 Click Here 💝</button>
+            <p class="hint">A surprise awaits...</p>
+        </div>
+
+        <!-- Bouquet Screen (Hidden initially) -->
+        <div class="bouquet-screen" id="bouquetScreen" style="display: none;">
+            <div class="bouquet-container">
+                <!-- Large Pink Bouquet -->
+                <div class="bouquet">
+                    <!-- Stem -->
+                    <div class="stem"></div>
+                    
+                    <!-- Wrapper -->
+                    <div class="wrapper">
+                        <!-- Pink Flowers (15 total for a large bouquet) -->
+                        <div class="flower flower-1"></div>
+                        <div class="flower flower-2"></div>
+                        <div class="flower flower-3"></div>
+                        <div class="flower flower-4"></div>
+                        <div class="flower flower-5"></div>
+                        <div class="flower flower-6"></div>
+                        <div class="flower flower-7"></div>
+                        <div class="flower flower-8"></div>
+                        <div class="flower flower-9"></div>
+                        <div class="flower flower-10"></div>
+                        <div class="flower flower-11"></div>
+                        <div class="flower flower-12"></div>
+                        <div class="flower flower-13"></div>
+                        <div class="flower flower-14"></div>
+                        <div class="flower flower-15"></div>
+                    </div>
                 </div>
-                
-                <div class="flower tulip">
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="center"></div>
+
+                <!-- Confetti -->
+                <div class="confetti-container" id="confettiContainer"></div>
+
+                <!-- Message Below -->
+                <div class="message-box">
+                    <h2 class="message-text">Good Morning Love! 💕</h2>
                 </div>
-                
-                <div class="flower rose">
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="petal"></div>
-                    <div class="center"></div>
-                </div>
-            </div>
-            
-            <div class="love-message">
-                <p>I love you more each day ❤️</p>
-            </div>
-            
-            <button class="btn" onclick="showLove()">💕 Click Here 💕</button>
-            
-            <div id="surprise" class="surprise hidden">
-                <p>You make my heart bloom! 🌹</p>
+
+                <!-- Back Button -->
+                <button class="back-button" id="backButton">← Back</button>
             </div>
         </div>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
