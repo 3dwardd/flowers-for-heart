@@ -1,54 +1,83 @@
-function showLove() {
-    const surprise = document.getElementById('surprise');
-    surprise.classList.remove('hidden');
-    
-    // Create floating hearts
-    createHearts();
-}
+// Get Elements
+const clickButton = document.getElementById('clickButton');
+const backButton = document.getElementById('backButton');
+const initialScreen = document.getElementById('initialScreen');
+const bouquetScreen = document.getElementById('bouquetScreen');
+const confettiContainer = document.getElementById('confettiContainer');
 
-function createHearts() {
-    const colors = ['#ff69b4', '#ff1493', '#ff0080', '#e91e63'];
+// Click Button Handler
+clickButton.addEventListener('click', () => {
+    // Hide initial screen
+    initialScreen.style.display = 'none';
     
-    for (let i = 0; i < 10; i++) {
-        const heart = document.createElement('div');
-        heart.innerHTML = '❤️';
-        heart.style.position = 'fixed';
-        heart.style.left = Math.random() * window.innerWidth + 'px';
-        heart.style.top = Math.random() * window.innerHeight + 'px';
-        heart.style.fontSize = '30px';
-        heart.style.opacity = '0';
-        heart.style.pointerEvents = 'none';
-        heart.style.zIndex = '9999';
+    // Show bouquet screen
+    bouquetScreen.style.display = 'flex';
+    
+    // Create confetti
+    createConfetti();
+    
+    // Play sound (optional)
+    playSound();
+});
+
+// Back Button Handler
+backButton.addEventListener('click', () => {
+    // Show initial screen
+    initialScreen.style.display = 'block';
+    
+    // Hide bouquet screen
+    bouquetScreen.style.display = 'none';
+    
+    // Clear confetti
+    confettiContainer.innerHTML = '';
+});
+
+// Create Confetti Animation
+function createConfetti() {
+    const confettiCount = 50;
+    
+    for (let i = 0; i < confettiCount; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
         
-        document.body.appendChild(heart);
+        // Random position
+        const left = Math.random() * 100;
+        const delay = Math.random() * 0.5;
+        const duration = 2 + Math.random() * 1.5;
         
-        // Animate hearts floating up
-        animateHeart(heart);
+        // Random colors for confetti
+        const colors = ['#ff1493', '#ff69b4', '#ffb6d9', '#ffd700', '#ff69b4'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        confetti.style.left = left + '%';
+        confetti.style.background = randomColor;
+        confetti.style.animation = `fall ${duration}s linear ${delay}s forwards`;
+        
+        confettiContainer.appendChild(confetti);
     }
 }
 
-function animateHeart(heart) {
-    let top = parseFloat(heart.style.top);
-    let opacity = 0;
-    
-    const interval = setInterval(() => {
-        top -= 2;
-        opacity += 0.02;
+// Play Sound Effect (optional)
+function playSound() {
+    // Create a simple beep sound using Web Audio API
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
         
-        if (opacity > 1) opacity = 1;
-        if (opacity < 0) opacity = 0;
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
         
-        heart.style.top = top + 'px';
-        heart.style.opacity = opacity;
+        oscillator.frequency.value = 800;
+        oscillator.type = 'sine';
         
-        if (top < 0) {
-            clearInterval(interval);
-            heart.remove();
-        }
-    }, 30);
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 0.5);
+    } catch (e) {
+        // Audio context not supported, silently fail
+        console.log('Audio not supported');
+    }
 }
-
-// Add page load animation
-window.addEventListener('load', () => {
-    console.log('💐 Welcome to the flowers page! 💐');
-});
